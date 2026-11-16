@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momen Medhat — Penetration Tester</title>
+<meta name="description" content="Penetration tester based in Giza, Egypt. Web application security, Active Directory, internal networks and automotive CAN bus testing.">
+
+<meta property="og:title" content="Momen Medhat — Penetration Tester">
+<meta property="og:description" content="Offensive security: web apps, Active Directory, internal networks, automotive CAN bus.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://mastermind2k16.github.io/">
+<meta property="og:image" content="https://mastermind2k16.github.io/assets/argus-infographic.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+<style>
+  :root{
+    --bg:#080b10;
+    --bg-soft:#0f141c;
+    --panel:#121923;
+    --line:#1f2936;
+    --txt:#e4e9f0;
+    --txt-dim:#8b97a8;
+    --accent:#35e0a1;
+    --accent-dim:#1b7a59;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--txt);font-family:var(--sans);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;opacity:.25;pointer-events:none;z-index:0;
+  }
+  .wrap{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);
+      background:rgba(8,11,16,.82);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+  .brand{font-family:var(--mono);font-size:14px;color:var(--accent);
+         letter-spacing:.5px;text-decoration:none;white-space:nowrap}
+  .nav-links{display:flex;gap:20px;font-size:14px}
+  .nav-links a{color:var(--txt-dim);text-decoration:none;transition:color .15s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--accent)}
+
+  /* HERO */
+  header{padding:76px 0 60px}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--accent);
+          margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);
+       box-shadow:0 0 0 4px rgba(53,224,161,.15)}
+  h1{font-size:clamp(34px,6vw,56px);line-height:1.1;letter-spacing:-1px;
+     font-weight:700;margin-bottom:14px}
+  .role{font-family:var(--mono);font-size:clamp(14px,2.3vw,18px);
+        color:var(--txt-dim);margin-bottom:24px}
+  .role b{color:var(--txt);font-weight:500}
+  .bio{font-size:17px;color:var(--txt-dim);max-width:64ch;margin-bottom:32px}
+
+  /* BUTTONS */
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;
+       border-radius:8px;font-size:15px;font-weight:500;text-decoration:none;
+       border:1px solid var(--line);color:var(--txt);background:var(--panel);
+       transition:border-color .15s, transform .15s, background .15s}
+  .btn:hover,.btn:focus-visible{border-color:var(--accent-dim);transform:translateY(-1px)}
+  .btn-primary{background:var(--accent);color:#04120c;border-color:var(--accent);font-weight:600}
+  .btn-primary:hover,.btn-primary:focus-visible{background:#4df0b2;border-color:#4df0b2}
+  .btn svg{width:17px;height:17px;flex-shrink:0}
+
+  /* SECTIONS */
+  section{padding:54px 0;border-top:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);text-transform:uppercase;
+     letter-spacing:2px;color:var(--txt-dim);margin-bottom:26px}
+  h2::before{content:"// ";color:var(--accent)}
+  h3{font-size:23px;font-weight:600;margin-bottom:10px;letter-spacing:-.3px}
+
+  /* PROJECT */
+  .project-meta{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:8px}
+  .project-desc{color:var(--txt-dim);max-width:64ch;margin-bottom:18px}
+  .role-line{
+    font-size:14px;color:var(--txt-dim);margin-bottom:24px;
+    padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-soft);
+    border-radius:0 8px 8px 0;
+  }
+  .role-line b{color:var(--txt);font-weight:600}
+
+  .figure{border:1px solid var(--line);border-radius:12px;background:var(--bg-soft);
+          padding:10px;overflow:hidden}
+  .figure img{display:block;width:100%;height:auto;border-radius:7px;cursor:zoom-in}
+  figcaption{font-size:13px;color:var(--txt-dim);padding:12px 6px 4px;text-align:center}
+  figcaption a{color:var(--accent)}
+
+  /* SKILLS */
+  .skill-group{margin-bottom:22px}
+  .skill-group:last-child{margin-bottom:0}
+  .skill-label{font-family:var(--mono);font-size:12px;color:var(--accent);
+               margin-bottom:10px;letter-spacing:.5px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:var(--mono);font-size:12.5px;padding:5px 11px;
+       border:1px solid var(--line);border-radius:999px;
+       color:var(--txt-dim);background:var(--panel)}
+
+  /* CERTS */
+  .certs{list-style:none;display:grid;
+         grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:8px 24px}
+  .certs li{font-size:14.5px;color:var(--txt-dim);padding-left:18px;position:relative}
+  .certs li::before{content:"▸";position:absolute;left:0;color:var(--accent-dim)}
+  .certs b{color:var(--txt);font-weight:500}
+
+  /* LINKS */
+  .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  .link-card{display:flex;align-items:center;gap:13px;padding:16px;
+             border:1px solid var(--line);border-radius:10px;background:var(--panel);
+             text-decoration:none;color:var(--txt);
+             transition:border-color .15s, transform .15s}
+  .link-card:hover,.link-card:focus-visible{border-color:var(--accent-dim);transform:translateY(-2px)}
+  .link-card svg{width:20px;height:20px;color:var(--accent);flex-shrink:0}
+  .link-card span{font-size:14px;display:block;line-height:1.35}
+  .link-card small{display:block;color:var(--txt-dim);font-size:12px;word-break:break-all}
+
+  footer{padding:34px 0 46px;border-top:1px solid var(--line);
+         font-family:var(--mono);font-size:12px;color:var(--txt-dim);text-align:center}
+
+  /* LIGHTBOX */
+  #lb{position:fixed;inset:0;z-index:50;display:none;place-items:center;
+      background:rgba(4,6,10,.95);padding:20px;cursor:zoom-out}
+  #lb.on{display:grid}
+  #lb img{max-width:100%;max-height:92vh;border-radius:8px}
+  #lb .hint{position:absolute;bottom:16px;left:0;right:0;text-align:center;
+            font-family:var(--mono);font-size:12px;color:var(--txt-dim)}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  @media (max-width:560px){
+    .nav-links{display:none}
+    header{padding:52px 0 42px}
+    .btn{flex:1 1 auto;justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">~/momen-medhat</a>
+    <div class="nav-links">
+      <a href="#project">Project</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="kicker"><span class="dot"></span>Open to opportunities · Giza, Egypt</div>
+
+    <h1>Momen Medhat</h1>
+
+    <p class="role"><b>Penetration Tester</b> · Web · Active Directory · Automotive CAN Bus</p>
+
+    <p class="bio">
+      Penetration tester with hands-on offensive security experience across web applications,
+      Active Directory, internal networks and automotive CAN bus systems. 200+ practical labs
+      completed, 5+ bug bounty reports submitted, and all 5 exploited OWASP Top 10 vulnerability
+      classes mapped to their categories. Python scripting, with foundational reverse engineering in Ghidra.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="assets/cv.pdf" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/momen-medhat/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .92.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn" href="https://github.com/MasterMind2K16" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 22 12A10 10 0 0 0 12 2z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PROJECT -->
+<section id="project">
+  <div class="wrap">
+    <h2>Featured Project</h2>
+
+    <p class="project-meta">2026 · DigiLians 9-Month Professional Diploma · Round 1</p>
+    <h3>ARGUS — Autonomous AI Penetration Testing</h3>
+
+    <p class="project-desc">
+      A fully autonomous, locally hosted AI agent that runs the penetration testing pipeline
+      end to end — recon, analysis, RAG-based CVE enrichment, reflective exploit verification
+      and structured reporting. Built on a LangGraph ReAct loop with Pydantic structured decoding,
+      bridging Windows with Kali Linux over WSL2 so no target topology ever leaves the network.
+    </p>
+
+    <p class="role-line">
+      <b>My contribution:</b> ReAct architecture · structured decoding · offensive toolchain integration.
+    </p>
+
+    <figure class="figure">
+      <img src="assets/argus-infographic.jpg"
+           alt="ARGUS project infographic: architecture, five-stage execution pipeline, tech stack and validated KPIs"
+           loading="lazy" width="2600" height="1839">
+      <figcaption>
+        Project infographic — click to enlarge ·
+        <a href="assets/argus-infographic.pdf" target="_blank" rel="noopener">open full-resolution PDF</a>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills &amp; Tooling</h2>
+
+    <div class="skill-group">
+      <div class="skill-label">PENETRATION TESTING</div>
+      <div class="tags">
+        <span class="tag">Reconnaissance</span>
+        <span class="tag">Vulnerability Assessment</span>
+        <span class="tag">Exploitation</span>
+        <span class="tag">Post-Exploitation</span>
+        <span class="tag">Lateral Movement</span>
+        <span class="tag">Persistence</span>
+        <span class="tag">Reporting</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">WEB APPLICATION SECURITY</div>
+      <div class="tags">
+        <span class="tag">OWASP Top 10</span>
+        <span class="tag">SQLi</span>
+        <span class="tag">XSS</span>
+        <span class="tag">SSRF</span>
+        <span class="tag">CSRF</span>
+        <span class="tag">IDOR</span>
+        <span class="tag">Burp Suite</span>
+        <span class="tag">SQLmap</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">ACTIVE DIRECTORY</div>
+      <div class="tags">
+        <span class="tag">Kerberoasting</span>
+        <span class="tag">Pass-the-Hash</span>
+        <span class="tag">Privilege Escalation</span>
+        <span class="tag">Credential Dumping</span>
+        <span class="tag">MITRE ATT&amp;CK Mapping</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">AUTOMOTIVE SECURITY</div>
+      <div class="tags">
+        <span class="tag">CAN Bus Testing</span>
+        <span class="tag">OBD-II</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">TOOLS, SCRIPTING &amp; NETWORKING</div>
+      <div class="tags">
+        <span class="tag">Nmap</span>
+        <span class="tag">Metasploit</span>
+        <span class="tag">Nessus</span>
+        <span class="tag">Wireshark</span>
+        <span class="tag">Ghidra</span>
+        <span class="tag">Python</span>
+        <span class="tag">Bash</span>
+        <span class="tag">Kali Linux</span>
+        <span class="tag">TCP/IP</span>
+        <span class="tag">VLANs · ACLs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="wrap">
+    <h2>Certifications</h2>
+    <ul class="certs">
+      <li><b>Web Red Team Analyst (Web-RTA)</b> — CyberWarFare Labs</li>
+      <li><b>Ethical Hacker</b> — Cisco</li>
+      <li><b>Jr Penetration Tester</b> — TryHackMe</li>
+      <li><b>Cyber Security 101</b> — TryHackMe</li>
+      <li><b>Google Cybersecurity Specialization</b> — Google</li>
+      <li><b>FortiGate Administrator</b> — Fortinet</li>
+      <li><b>CCNA Routing and Switching</b> — YAT Learning Centers</li>
+      <li><b>Automobile Hacking &amp; Security v1.0 / v2.0</b> — Udemy</li>
+      <li><b>HCSA-Maintenance</b> — Hikvision MEA</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <h2>Links</h2>
+    <div class="links-grid">
+
+      <a class="link-card" href="assets/cv.pdf" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span>Curriculum Vitae<small>PDF · download</small></span>
+      </a>
+
+      <a class="link-card" href="https://www.linkedin.com/in/momen-medhat/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .92.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        <span>LinkedIn<small>linkedin.com/in/momen-medhat</small></span>
+      </a>
+
+      <a class="link-card" href="https://github.com/MasterMind2K16" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 22 12A10 10 0 0 0 12 2z"/></svg>
+        <span>GitHub<small>github.com/MasterMind2K16</small></span>
+      </a>
+
+      <a class="link-card" href="mailto:momenmedhat29@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span>Email<small>momenmedhat29@gmail.com</small></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr">2026</span> Momen Medhat · Built with HTML/CSS · Hosted on GitHub Pages</div>
+</footer>
+
+<div id="lb" role="dialog" aria-label="Enlarged infographic" aria-modal="true">
+  <img alt="">
+  <div class="hint">click anywhere or press Esc to close</div>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var lb = document.getElementById('lb');
+  var lbImg = lb.querySelector('img');
+
+  document.querySelectorAll('.figure img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || '';
+      lb.classList.add('on');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLb() {
+    lb.classList.remove('on');
+    document.body.style.overflow = '';
+  }
+  lb.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLb();
+  });
+</script>
+
+</body>
+</html>
