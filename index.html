@@ -301,12 +301,19 @@
     padding-block:13px;border-top:1px solid var(--rule);font-size:16.5px;
   }
   .creds .sigil{
-    flex:none;width:40px;height:40px;border-radius:3px;
+    position:relative;flex:none;width:40px;height:40px;border-radius:3px;
     border:1px solid var(--rule);display:grid;place-items:center;
     font-family:var(--display);font-weight:600;font-size:15px;
-    letter-spacing:.01em;color:var(--slate);
+    letter-spacing:.01em;color:var(--slate);overflow:hidden;
     transition:border-color .2s ease,color .2s ease;
   }
+  .creds .sigil img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:contain;padding:5px;background:#fff;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .creds .sigil.logo img{opacity:1}
+  .creds .sigil.logo{background:#fff;border-color:var(--rule)}
   .creds li:hover .sigil{border-color:var(--cobalt);color:var(--cobalt)}
   .creds li i{display:block;font-style:normal;color:var(--slate);font-size:14.5px;margin-top:2px}
 
@@ -548,15 +555,15 @@
   <section class="creds shell">
     <h2 class="section reveal">Certifications</h2>
     <ul class="reveal">
-      <li><span class="sigil" aria-hidden="true">CW</span><span>Web Red Team Analyst<i>CyberWarFare Labs</i></span></li>
-      <li><span class="sigil" aria-hidden="true">C</span><span>Ethical Hacker<i>Cisco</i></span></li>
-      <li><span class="sigil" aria-hidden="true">T</span><span>Jr Penetration Tester<i>TryHackMe</i></span></li>
-      <li><span class="sigil" aria-hidden="true">T</span><span>Cyber Security 101<i>TryHackMe</i></span></li>
-      <li><span class="sigil" aria-hidden="true">G</span><span>Google Cybersecurity Specialization<i>Google</i></span></li>
-      <li><span class="sigil" aria-hidden="true">F</span><span>FortiGate Administrator<i>Fortinet</i></span></li>
-      <li><span class="sigil" aria-hidden="true">YL</span><span>CCNA Routing and Switching<i>YAT Learning Centers</i></span></li>
-      <li><span class="sigil" aria-hidden="true">U</span><span>Automobile Hacking and Security, v1.0 and v2.0<i>Udemy</i></span></li>
-      <li><span class="sigil" aria-hidden="true">H</span><span>HCSA-Maintenance<i>Hikvision MEA</i></span></li>
+      <li><span class="sigil" data-logo="cyberwarfare-labs" aria-hidden="true"><img src="assets/logos/cyberwarfare-labs.svg" alt="" loading="lazy">CW</span><span>Web Red Team Analyst<i>CyberWarFare Labs</i></span></li>
+      <li><span class="sigil" data-logo="cisco" aria-hidden="true"><img src="assets/logos/cisco.svg" alt="" loading="lazy">C</span><span>Ethical Hacker<i>Cisco</i></span></li>
+      <li><span class="sigil" data-logo="tryhackme" aria-hidden="true"><img src="assets/logos/tryhackme.svg" alt="" loading="lazy">T</span><span>Jr Penetration Tester<i>TryHackMe</i></span></li>
+      <li><span class="sigil" data-logo="tryhackme" aria-hidden="true"><img src="assets/logos/tryhackme.svg" alt="" loading="lazy">T</span><span>Cyber Security 101<i>TryHackMe</i></span></li>
+      <li><span class="sigil" data-logo="google" aria-hidden="true"><img src="assets/logos/google.svg" alt="" loading="lazy">G</span><span>Google Cybersecurity Specialization<i>Google</i></span></li>
+      <li><span class="sigil" data-logo="fortinet" aria-hidden="true"><img src="assets/logos/fortinet.svg" alt="" loading="lazy">F</span><span>FortiGate Administrator<i>Fortinet</i></span></li>
+      <li><span class="sigil" data-logo="yat" aria-hidden="true"><img src="assets/logos/yat.svg" alt="" loading="lazy">YL</span><span>CCNA Routing and Switching<i>YAT Learning Centers</i></span></li>
+      <li><span class="sigil" data-logo="udemy" aria-hidden="true"><img src="assets/logos/udemy.svg" alt="" loading="lazy">U</span><span>Automobile Hacking and Security, v1.0 and v2.0<i>Udemy</i></span></li>
+      <li><span class="sigil" data-logo="hikvision" aria-hidden="true"><img src="assets/logos/hikvision.svg" alt="" loading="lazy">H</span><span>HCSA-Maintenance<i>Hikvision MEA</i></span></li>
     </ul>
   </section>
 
@@ -569,7 +576,7 @@
         <li><a href="mailto:momenmedhat29@gmail.com"><strong>Email</strong><span>momenmedhat29@gmail.com</span></a></li>
         <li><a href="https://www.linkedin.com/in/momen-medhat/" target="_blank" rel="noopener"><strong>LinkedIn</strong><span>linkedin.com/in/momen-medhat</span></a></li>
         <li><a href="https://github.com/MasterMind2K16" target="_blank" rel="noopener"><strong>GitHub</strong><span>github.com/MasterMind2K16</span></a></li>
-        <li><a href="assets/cv.pdf" download><strong>Curriculum vitae</strong><span>PDF, 50 KB</span></a></li>
+        <li><a href="assets/cv.pdf" download><strong>CV</strong><span>PDF, 50 KB</span></a></li>
       </ul>
     </div>
   </section>
@@ -625,6 +632,19 @@
       Array.prototype.forEach.call(letters, function (ch) { ch.classList.remove('lift'); });
     });
   }
+
+  /* ── issuer logos: shown only if the file is there ── */
+  Array.prototype.forEach.call(document.querySelectorAll('.sigil img'), function (img) {
+    function fail() { img.remove(); }
+    img.addEventListener('error', fail);
+    img.addEventListener('load', function () {
+      if (img.naturalWidth) img.parentNode.classList.add('logo');
+      else fail();
+    });
+    if (img.complete) {
+      img.naturalWidth ? img.parentNode.classList.add('logo') : fail();
+    }
+  });
 
   /* ── scroll reveals ── */
   var targets = document.querySelectorAll('.reveal');
