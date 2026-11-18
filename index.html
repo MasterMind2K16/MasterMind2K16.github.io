@@ -28,7 +28,8 @@
                      : window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.dataset.theme = dark ? 'dark' : 'light';
     document.documentElement.classList.add('js');
-  })();
+  
+})();
 </script>
 
 <style>
@@ -301,19 +302,12 @@
     padding-block:13px;border-top:1px solid var(--rule);font-size:16.5px;
   }
   .creds .sigil{
-    position:relative;flex:none;width:40px;height:40px;border-radius:3px;
+    flex:none;width:40px;height:40px;border-radius:3px;
     border:1px solid var(--rule);display:grid;place-items:center;
     font-family:var(--display);font-weight:600;font-size:15px;
     letter-spacing:.01em;color:var(--slate);overflow:hidden;
     transition:border-color .2s ease,color .2s ease;
   }
-  .creds .sigil img{
-    position:absolute;inset:0;width:100%;height:100%;
-    object-fit:contain;padding:5px;background:#fff;
-    opacity:0;transition:opacity .25s ease;
-  }
-  .creds .sigil.logo img{opacity:1}
-  .creds .sigil.logo{background:#fff;border-color:var(--rule)}
   .creds li:hover .sigil{border-color:var(--cobalt);color:var(--cobalt)}
   .creds li i{display:block;font-style:normal;color:var(--slate);font-size:14.5px;margin-top:2px}
 
@@ -337,6 +331,41 @@
   .reach strong{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.4vw,27px);letter-spacing:-.025em}
   .reach span{color:var(--slate);font-size:15.5px}
   .reach a:hover span,.reach a:focus-visible span{color:var(--cobalt)}
+
+  /* ─────────── NOTE FORM ─────────── */
+  .note{margin-top:clamp(44px,7vh,72px)}
+  .note h3{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(21px,2.4vw,28px);letter-spacing:-.025em;margin-bottom:8px;
+  }
+  .note .why{color:var(--slate);max-width:44ch;margin-bottom:24px;font-size:15.5px}
+  .note form{max-width:620px;display:grid;gap:12px}
+  .pair{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+  .note label{display:block;font-size:14px;color:var(--slate);margin-bottom:5px}
+  .note input,.note textarea{
+    width:100%;font-family:var(--body);font-size:16px;color:var(--ink);
+    background:var(--paper);border:1px solid var(--rule);border-radius:2px;
+    padding:12px 14px;transition:border-color .18s ease;
+  }
+  .note textarea{resize:vertical;min-height:132px;line-height:1.55}
+  .note input:focus,.note textarea:focus{border-color:var(--cobalt)}
+  .note input::placeholder,.note textarea::placeholder{color:var(--slate);opacity:.65}
+  .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .note .send{
+    justify-self:start;font-family:var(--body);font-size:16px;font-weight:600;
+    padding:13px 30px;border-radius:2px;cursor:pointer;
+    border:1px solid var(--cta-bg);background:var(--cta-bg);color:var(--cta-ink);
+    transition:background-color .18s ease,opacity .18s ease;
+  }
+  .note .send:hover:not(:disabled){background:var(--cta-bg-hover);border-color:var(--cta-bg-hover)}
+  .note .send:disabled{opacity:.5;cursor:not-allowed}
+  .note .said{font-size:15px;min-height:1.3em}
+  .note .said.good{color:#1F8A5F}
+  .note .said.bad{color:#C2403B}
+  [data-theme="dark"] .note .said.good{color:#5FD3A3}
+  [data-theme="dark"] .note .said.bad{color:#FF9A9A}
+  .note .privacy{color:var(--slate);font-size:13.5px;max-width:52ch}
+  @media (max-width:620px){ .pair{grid-template-columns:1fr} }
 
   footer{padding-block:34px 44px;font-size:14.5px;color:var(--slate)}
 
@@ -555,15 +584,15 @@
   <section class="creds shell">
     <h2 class="section reveal">Certifications</h2>
     <ul class="reveal">
-      <li><span class="sigil" data-logo="cyberwarfare-labs" aria-hidden="true"><img src="assets/logos/cyberwarfare-labs.svg" alt="" loading="lazy">CW</span><span>Web Red Team Analyst<i>CyberWarFare Labs</i></span></li>
-      <li><span class="sigil" data-logo="cisco" aria-hidden="true"><img src="assets/logos/cisco.svg" alt="" loading="lazy">C</span><span>Ethical Hacker<i>Cisco</i></span></li>
-      <li><span class="sigil" data-logo="tryhackme" aria-hidden="true"><img src="assets/logos/tryhackme.svg" alt="" loading="lazy">T</span><span>Jr Penetration Tester<i>TryHackMe</i></span></li>
-      <li><span class="sigil" data-logo="tryhackme" aria-hidden="true"><img src="assets/logos/tryhackme.svg" alt="" loading="lazy">T</span><span>Cyber Security 101<i>TryHackMe</i></span></li>
-      <li><span class="sigil" data-logo="google" aria-hidden="true"><img src="assets/logos/google.svg" alt="" loading="lazy">G</span><span>Google Cybersecurity Specialization<i>Google</i></span></li>
-      <li><span class="sigil" data-logo="fortinet" aria-hidden="true"><img src="assets/logos/fortinet.svg" alt="" loading="lazy">F</span><span>FortiGate Administrator<i>Fortinet</i></span></li>
-      <li><span class="sigil" data-logo="yat" aria-hidden="true"><img src="assets/logos/yat.svg" alt="" loading="lazy">YL</span><span>CCNA Routing and Switching<i>YAT Learning Centers</i></span></li>
-      <li><span class="sigil" data-logo="udemy" aria-hidden="true"><img src="assets/logos/udemy.svg" alt="" loading="lazy">U</span><span>Automobile Hacking and Security, v1.0 and v2.0<i>Udemy</i></span></li>
-      <li><span class="sigil" data-logo="hikvision" aria-hidden="true"><img src="assets/logos/hikvision.svg" alt="" loading="lazy">H</span><span>HCSA-Maintenance<i>Hikvision MEA</i></span></li>
+      <li><span class="sigil" aria-hidden="true">CW</span><span>Web Red Team Analyst<i>CyberWarFare Labs</i></span></li>
+      <li><span class="sigil" aria-hidden="true">C</span><span>Ethical Hacker<i>Cisco</i></span></li>
+      <li><span class="sigil" aria-hidden="true">T</span><span>Jr Penetration Tester<i>TryHackMe</i></span></li>
+      <li><span class="sigil" aria-hidden="true">T</span><span>Cyber Security 101<i>TryHackMe</i></span></li>
+      <li><span class="sigil" aria-hidden="true">G</span><span>Google Cybersecurity Specialization<i>Google</i></span></li>
+      <li><span class="sigil" aria-hidden="true">F</span><span>FortiGate Administrator<i>Fortinet</i></span></li>
+      <li><span class="sigil" aria-hidden="true">YL</span><span>CCNA Routing and Switching<i>YAT Learning Centers</i></span></li>
+      <li><span class="sigil" aria-hidden="true">U</span><span>Automobile Hacking and Security, v1.0 and v2.0<i>Udemy</i></span></li>
+      <li><span class="sigil" aria-hidden="true">H</span><span>HCSA-Maintenance<i>Hikvision MEA</i></span></li>
     </ul>
   </section>
 
@@ -578,6 +607,44 @@
         <li><a href="https://github.com/MasterMind2K16" target="_blank" rel="noopener"><strong>GitHub</strong><span>github.com/MasterMind2K16</span></a></li>
         <li><a href="assets/cv.pdf" download><strong>CV</strong><span>PDF, 50 KB</span></a></li>
       </ul>
+
+      <div class="note">
+        <h3>Or just leave a note</h3>
+        <p class="why">
+          No address needed. Write what you like and it comes straight to me.
+        </p>
+
+        <form id="note" novalidate>
+          <div class="pair">
+            <div>
+              <label for="n-name">Name <span style="opacity:.7">(optional)</span></label>
+              <input id="n-name" name="name" type="text" autocomplete="name" placeholder="Who is this?">
+            </div>
+            <div>
+              <label for="n-back">How to reach you <span style="opacity:.7">(optional)</span></label>
+              <input id="n-back" name="reply_to" type="text" autocomplete="email" placeholder="Only if you want an answer">
+            </div>
+          </div>
+
+          <div>
+            <label for="n-msg">Message</label>
+            <textarea id="n-msg" name="message" required maxlength="4000"
+                      placeholder="A question, a job, a bug on this page, or which flag took longest."></textarea>
+          </div>
+
+          <div class="trap" aria-hidden="true">
+            <label for="n-trap">Leave this empty</label>
+            <input id="n-trap" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="send" type="submit" id="n-send">Send</button>
+          <p class="said" id="n-said" role="status" aria-live="polite"></p>
+          <p class="privacy">
+            Delivered through a form service, so it is held there and by me — not published
+            anywhere on this site.
+          </p>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -632,19 +699,6 @@
       Array.prototype.forEach.call(letters, function (ch) { ch.classList.remove('lift'); });
     });
   }
-
-  /* ── issuer logos: shown only if the file is there ── */
-  Array.prototype.forEach.call(document.querySelectorAll('.sigil img'), function (img) {
-    function fail() { img.remove(); }
-    img.addEventListener('error', fail);
-    img.addEventListener('load', function () {
-      if (img.naturalWidth) img.parentNode.classList.add('logo');
-      else fail();
-    });
-    if (img.complete) {
-      img.naturalWidth ? img.parentNode.classList.add('logo') : fail();
-    }
-  });
 
   /* ── scroll reveals ── */
   var targets = document.querySelectorAll('.reveal');
@@ -757,6 +811,58 @@
   });
 
   finish();
+  /* ── note form ──
+     Paste the endpoint from your form provider between the quotes below.
+     Formspree: create a form at formspree.io, copy the URL it gives you,
+     and it looks like https://formspree.io/f/abcdwxyz
+     Until that is filled in the form stays disabled rather than failing quietly. */
+  var NOTE_ENDPOINT = '';
+
+  var noteForm = document.getElementById('note'),
+      noteSend = document.getElementById('n-send'),
+      noteSaid = document.getElementById('n-said');
+
+  if (!NOTE_ENDPOINT) {
+    noteSend.disabled = true;
+    noteSaid.className = 'said';
+    noteSaid.textContent = 'Not connected yet.';
+  }
+
+  noteForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!NOTE_ENDPOINT) return;
+
+    var msg = document.getElementById('n-msg');
+    if (!msg.value.trim()) {
+      noteSaid.className = 'said bad';
+      noteSaid.textContent = 'Write something first.';
+      msg.focus();
+      return;
+    }
+    if (document.getElementById('n-trap').value) return; // bot
+
+    noteSend.disabled = true;
+    noteSaid.className = 'said';
+    noteSaid.textContent = 'Sending…';
+
+    fetch(NOTE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(noteForm)
+    }).then(function (res) {
+      if (!res.ok) throw new Error(res.status);
+      noteForm.reset();
+      noteSaid.className = 'said good';
+      noteSaid.textContent = 'Sent. Thank you.';
+    }).catch(function () {
+      noteSaid.className = 'said bad';
+      noteSaid.textContent = 'That did not go through. Try again, or email me instead.';
+    }).then(function () {
+      noteSend.disabled = false;
+    });
+  });
+
+
 })();
 </script>
 
